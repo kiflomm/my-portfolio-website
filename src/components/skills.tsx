@@ -1,7 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useState } from "react"
+import { motion } from "framer-motion" 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -34,6 +33,14 @@ const skills = {
       icon: <Code className="h-6 w-6" />,
     },
   ],
+  "Mobile App Development": [
+    {
+      name: "Expo",
+      description: "Building mobile applications using the React native Expo framework ",
+      tags: ["React Native", "Expo", "Cross-Platform"],
+      icon: <Code className="h-6 w-6" />,
+    },
+  ],
   Backend: [
     {
       name: "Node.js",
@@ -54,7 +61,7 @@ const skills = {
       icon: <Database className="h-6 w-6" />,
     },
   ],
-  Database: [
+  "Database and ORM": [
     {
       name: "MongoDB",
       description: "Working with NoSQL databases, aggregation pipelines, and schemas",
@@ -115,6 +122,18 @@ const skills = {
       tags: ["Speaking", "Writing", "Technical Documentation"],
       icon: <Globe className="h-6 w-6" />,
     },
+    {
+      name: "Amharic",
+      description: "Fluent in Amharic communication",
+      tags: ["Speaking", "Writing"],
+      icon: <Globe className="h-6 w-6" />,
+    },
+    {
+      name: "Tigrigna",
+      description: "Fluent in Tigrigna communication",
+      tags: ["Speaking", "Writing"],
+      icon: <Globe className="h-6 w-6" />,
+    },
   ],
 }
 
@@ -136,7 +155,7 @@ export function SkillsShowcase() {
         </motion.div>
 
         <Tabs defaultValue="Frontend" className="w-full">
-          <TabsList className="flex justify-center flex-wrap gap-2 ">
+          <TabsList className="flex justify-center flex-wrap gap-2 overflow-x-auto h-fit">
             {Object.keys(skills).map((category) => (
               <TabsTrigger 
                 key={category} 
