@@ -11,6 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-background text-foreground relative"
     >
-      <CustomCursor />
+      <CustomCursor/>
       
       {/* Decorative background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -30,7 +31,9 @@ export default function Home() {
 
       {/* Navigation icons */}
       <TooltipProvider>
-        <nav className="fixed right-8 top-1/2 -translate-y-1/2 space-y-4 z-50">
+        <nav className="fixed md:right-8 md:top-1/2 md:-translate-y-1/2 md:space-y-4 z-50
+                      top-0 left-0 right-0 md:left-auto bg-background/80 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none
+                      flex md:flex-col justify-center items-center space-x-4 md:space-x-0 p-4 md:p-0">
           <Tooltip>
             <TooltipTrigger asChild>
               <a
@@ -99,6 +102,10 @@ export default function Home() {
               <p>Contact</p>
             </TooltipContent>
           </Tooltip>
+
+          <div className="md:hidden">
+            <ThemeToggle />
+          </div>
         </nav>
       </TooltipProvider>
 
