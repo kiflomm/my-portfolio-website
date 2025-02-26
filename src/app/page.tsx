@@ -1,6 +1,6 @@
 "use client"
 import { HeroSection } from "@/components/hero-section"
-import { SkillsShowcase } from "@/components/skllis-showcase"
+import { SkillsShowcase } from "@/components/skills"
 import { ProjectGallery } from "@/components/project-gallery"
 import { ContactForm } from "@/components/contact-form"
 import { CustomCursor } from "@/components/custom-cursor"
