@@ -4,6 +4,7 @@ import { SkillsShowcase } from "@/components/skills"
 import { ProjectGallery } from "@/components/project-gallery"
 import { ContactForm } from "@/components/contact-form"
 import { CustomCursor } from "@/components/custom-cursor"
+import { EducationWork } from "@/components/education-work"
 import { motion } from "framer-motion"
 import {
   Tooltip,
@@ -72,6 +73,23 @@ export default function Home() {
           <Tooltip>
             <TooltipTrigger asChild>
               <a
+                href="#education"
+                className="block w-8 h-8 text-primary/50 hover:text-primary transition-colors"
+                aria-label="Navigate to education section"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 3L1 9l11 6l11-6L12 3M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                </svg>
+              </a>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Education & Work</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <a
                 href="#projects"
                 className="block w-8 h-8 text-primary/50 hover:text-primary transition-colors"
                 aria-label="Navigate to projects section"
@@ -116,6 +134,10 @@ export default function Home() {
 
       <section id="skills">
         <SkillsShowcase />
+      </section>
+
+      <section id="education">
+        <EducationWork />
       </section>
 
       <section id="projects">

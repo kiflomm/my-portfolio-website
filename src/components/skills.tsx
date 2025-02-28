@@ -11,7 +11,7 @@ const skills = {
     {
       name: "React",
       description: "Building complex web applications with React hooks, context, and modern patterns",
-      tags: ["Hooks", "Context", "Redux", "React Query"],
+      tags: ["Hooks", "Context", "Redux", "Zustand", "React Query"],
       icon: <Code className="h-6 w-6" />,
     },
     {
@@ -21,23 +21,9 @@ const skills = {
       icon: <Globe className="h-6 w-6" />,
     },
     {
-      name: "TypeScript",
-      description: "Writing type-safe code with advanced TypeScript features and patterns",
-      tags: ["Generics", "Type Guards", "Utility Types"],
-      icon: <Code className="h-6 w-6" />,
-    },
-    {
       name: "Tailwind CSS",
       description: "Crafting responsive and modern UI designs with utility-first CSS",
-      tags: ["Responsive Design", "Custom Themes", "Animations"],
-      icon: <Code className="h-6 w-6" />,
-    },
-  ],
-  "Mobile App Development": [
-    {
-      name: "Expo",
-      description: "Building mobile applications using the React native Expo framework ",
-      tags: ["React Native", "Expo", "Cross-Platform"],
+      tags: ["Responsive Design", "Custom Themes", "Animations", "Shadcn UI", "Material UI"],
       icon: <Code className="h-6 w-6" />,
     },
   ],
@@ -60,18 +46,26 @@ const skills = {
       tags: ["Apollo", "Schema Design", "Resolvers"],
       icon: <Database className="h-6 w-6" />,
     },
+  ],  
+  "Mobile App Development": [
+    {
+      name: "Expo",
+      description: "Building mobile applications using the React native Expo framework ",
+      tags: ["React Native", "Expo", "Cross-Platform"],
+      icon: <Code className="h-6 w-6" />,
+    },
   ],
   "Database and ORM": [
     {
-      name: "MongoDB",
+      name: "NoSQL Databases",
       description: "Working with NoSQL databases, aggregation pipelines, and schemas",
-      tags: ["Mongoose", "Aggregation", "Indexing"],
+      tags: ["MongoDB","Aggregation", "Indexing"],
       icon: <Database className="h-6 w-6" />,
     },
     {
-      name: "PostgreSQL",
+      name: "Relational Databases",
       description: "Managing relational databases with complex queries and optimizations",
-      tags: ["SQL", "Prisma", "Drizzle", "Migrations"],
+      tags: ["SQL", "PostgreSQL", "MySQL", "Migrations"],
       icon: <Database className="h-6 w-6" />,
     },
     {
@@ -83,23 +77,23 @@ const skills = {
   ],
   "DevOps & Tools": [
     {
+      name: "Version Control",
+      description: "Proficient in Git version control and collaboration",
+      tags: ["Git", "GitHub", "Branching", "CI/CD"],
+      icon: <Code className="h-6 w-6" />,
+    },
+    {
       name: "Docker",
       description: "Containerizing applications and managing multi-container environments",
       tags: ["Containers", "Docker Compose", "Networking"],
       icon: <Settings className="h-6 w-6" />,
     },
     {
-      name: "AWS",
+      name: "Cloud Services",
       description: "Deploying and managing cloud infrastructure and services",
-      tags: ["EC2", "S3", "Lambda", "CloudFront"],
+      tags: ["Vercel", "Coolify", "Hostinger", "Supabase", "Railway", "Firebase"],
       icon: <Globe className="h-6 w-6" />,
-    },
-    {
-      name: "Version Control",
-      description: "Proficient in Git version control and collaboration",
-      tags: ["Git", "GitHub", "Branching", "CI/CD"],
-      icon: <Code className="h-6 w-6" />,
-    },
+    }
   ],
   "Operating Systems": [
     {
@@ -115,7 +109,7 @@ const skills = {
       icon: <Terminal className="h-6 w-6" />,
     },
   ],
-  Languages: [
+  "Communication Languages": [
     {
       name: "English",
       description: "Professional proficiency in English communication",
