@@ -42,10 +42,10 @@ export function ContactForm() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
-            Let's Connect
+            Let{`'`}s Connect
           </h2>
           <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
-            Have a project in mind or just want to chat? Feel free to reach out. I'm always excited to collaborate on interesting projects and discuss new opportunities.
+            Have a project in mind or just want to chat? Feel free to reach out. I{`'`}m always excited to collaborate on interesting projects and discuss new opportunities.
           </p>
         </motion.div>
 

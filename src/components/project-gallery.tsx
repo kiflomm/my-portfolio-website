@@ -1,7 +1,5 @@
 "use client"
-
-import { motion } from "framer-motion"
-import { useState } from "react"
+import { motion } from "framer-motion" 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink } from "lucide-react"
@@ -44,8 +42,6 @@ const projects = [
 ]
 
 export function ProjectGallery() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-
   return (
     <section className="py-20 min-h-screen bg-gradient-to-b from-background to-muted">
       <div className="container mx-auto px-4">
