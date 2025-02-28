@@ -23,12 +23,25 @@ export function ContactForm() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    console.log(formState)
-    setIsSubmitting(false)
-    setFormState({ name: "", email: "", phone: "", message: "" })
+    try {
+      const response = await fetch("https://formspree.io/f/mpwqvqrb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to send message')
+      }
+
+      // Reset form
+      setFormState({ name: "", email: "", phone: "", message: "" })
+      alert('Message sent successfully!')
+    } catch (error) {
+      console.error('Error sending message:', error)
+      alert('Failed to send message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (

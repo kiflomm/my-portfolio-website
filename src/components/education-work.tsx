@@ -20,7 +20,7 @@ const educationData = [
 
 const workData = [
   {
-    company: "Tugza innovations P.L.C (Part Time)",
+    company: "Tugza innovations P.L.C (Part Time) - Mekelle, Ethiopia",
     position: "Mobile App and Full Stack Web Developer",
     duration: "2024 - Present",
     location: "Mekelle, Ethiopia",
