@@ -10,7 +10,7 @@ const educationData = [
     degree: "BSc in Software Engineering",
     duration: "2020 - Present",
     location: "Mekelle, Ethiopia",
-    description: "Currently pursuing a degree in Software Engineering with focus on web and mobile development.",
+    description: "Currently pursuing a Bachelor's degree in Software Engineering, specializing in modern web technologies, mobile app development, and software architecture. Coursework includes data structures, algorithms, database management, and software design patterns.",
     achievements: [
       "Proactive in learning new technologies",
       "Team work and collaboration"
@@ -24,7 +24,7 @@ const workData = [
     position: "Mobile App and Full Stack Web Developer",
     duration: "2024 - Present",
     location: "Mekelle, Ethiopia",
-    description: "Working as a Full Stack Developer specializing in web and mobile application development.",
+    description: "Working as a Full Stack Developer at a technology innovation company, building web and mobile solutions using Next.js, MERN stack, and Expo framework.",
     responsibilities: [
       "Developing responsive web applications",
       "Creating cross-platform mobile apps",

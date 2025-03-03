@@ -1,12 +1,26 @@
 "use client"
 
-import { motion } from "framer-motion" 
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Code, Database, Globe, Server, Settings, Terminal } from "lucide-react"
+import { Code, Database, Globe, Server, Settings, Terminal, ChevronRight, X } from "lucide-react"
+import { ReactNode } from "react"
 
-const skills = {
+interface Skill {
+  name: string
+  description: string
+  tags: string[]
+  icon: ReactNode
+}
+
+type SkillCategories = {
+  [key: string]: Skill[]
+}
+
+// Remove proficiency from skills data
+const skills: SkillCategories = {
   Frontend: [
     {
       name: "React",
@@ -46,11 +60,11 @@ const skills = {
       tags: ["Apollo", "Schema Design", "Resolvers"],
       icon: <Database className="h-6 w-6" />,
     },
-  ],  
+  ],
   "Mobile App Development": [
     {
       name: "Expo",
-      description: "Building mobile applications using the React native Expo framework ",
+      description: "Building mobile applications using the React native Expo framework",
       tags: ["React Native", "Expo", "Cross-Platform"],
       icon: <Code className="h-6 w-6" />,
     },
@@ -59,7 +73,7 @@ const skills = {
     {
       name: "NoSQL Databases",
       description: "Working with NoSQL databases, aggregation pipelines, and schemas",
-      tags: ["MongoDB","Aggregation", "Indexing"],
+      tags: ["MongoDB", "Aggregation", "Indexing"],
       icon: <Database className="h-6 w-6" />,
     },
     {
@@ -70,7 +84,7 @@ const skills = {
     },
     {
       name: "ORMs",
-      description:"Expertise in database Object-Relational Mapping tools",
+      description: "Expertise in database Object-Relational Mapping tools",
       tags: ["Prisma", "Drizzle", "Type Safety", "Migrations"],
       icon: <Database className="h-6 w-6" />,
     },
@@ -93,7 +107,7 @@ const skills = {
       description: "Deploying and managing cloud infrastructure and services",
       tags: ["Vercel", "Coolify", "Hostinger", "Supabase", "Railway", "Firebase"],
       icon: <Globe className="h-6 w-6" />,
-    }
+    },
   ],
   "Operating Systems": [
     {
@@ -132,64 +146,107 @@ const skills = {
 }
 
 export function SkillsShowcase() {
+  const [activeCategory, setActiveCategory] = useState("Frontend")
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null)
+
+  // Handle skill click for detailed view
+  const handleSkillClick = (skill: Skill) => {
+    setSelectedSkill(skill)
+  }
+
+  // Close detailed view
+  const closeDetailView = () => {
+    setSelectedSkill(null)
+  }
+
   return (
-    <section className="py-20 min-h-screen flex items-center bg-gradient-to-b from-background to-muted">
+    <section className="py-12 md:py-20 min-h-screen flex items-center bg-gradient-to-b from-background via-background to-muted/50">
       <div className="container mx-auto px-4">
+        {/* Header with animated gradient text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
-            Technical Expertise
+          <h2 className="text-4xl md:text-5xl font-bold relative">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary/50 animate-gradient">
+              Technical Expertise
+            </span>
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg">A showcase of my technical skills and proficiencies</p>
+          <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
+            A comprehensive showcase of my technical skills and proficiencies across various domains
+          </p>
         </motion.div>
 
-        <Tabs defaultValue="Frontend" className="w-full">
-          <TabsList className="flex justify-center flex-wrap gap-2 overflow-x-auto h-fit">
-            {Object.keys(skills).map((category) => (
-              <TabsTrigger 
-                key={category} 
-                value={category} 
-                className=" m-0 rounded-full transition-all duration-300
-                  data-[state=active]:bg-primary/10 data-[state=active]:text-primary
-                  hover:bg-muted/50 hover:text-foreground
-                  text-muted-foreground font-medium
-                  border border-transparent data-[state=active]:border-primary/20
-                  shadow-sm hover:shadow-md"
-              >
-                {category}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        {/* Main tabs content */}
+        <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
+          {/* Category tabs with icons */}
+          <div className="relative mb-8 overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10"></div>
+            <div className="overflow-x-auto pb-4 scrollbar-hide">
+              <TabsList className="flex justify-start gap-2 h-fit p-1 w-max mx-auto">
+                {Object.keys(skills).map((category) => (
+                  <TabsTrigger
+                    key={category}
+                    value={category}
+                    className="rounded-full transition-all duration-300 px-4 py-2
+                      data-[state=active]:bg-primary data-[state=active]:text-primary-foreground
+                      hover:bg-muted/80 hover:text-foreground
+                      text-muted-foreground font-medium
+                      border border-transparent data-[state=active]:border-primary/20
+                      shadow-sm hover:shadow-md"
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+          </div>
+
+          {/* Category content */}
           {Object.entries(skills).map(([category, categorySkills]) => (
-            <TabsContent key={category} value={category}>
+            <TabsContent key={category} value={category} className="focus-visible:outline-none focus-visible:ring-0">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {categorySkills.map((skill, index) => (
                   <motion.div
-                    key={skill.name}
+                    key={`${skill.name}-${index}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
+                    onClick={() => handleSkillClick(skill)}
+                    className="cursor-pointer"
                   >
-                    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50">
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          {skill.icon}
-                          {skill.name}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-muted-foreground mb-4">{skill.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {skill.tags.map((tag) => (
-                            <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary">
+                    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50 overflow-hidden group">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="p-2 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                            {skill.icon}
+                          </div>
+                          <h3 className="text-lg font-semibold">{skill.name}</h3>
+                        </div>
+
+                        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{skill.description}</p>
+
+                        <div className="flex flex-wrap gap-1.5 mt-auto">
+                          {skill.tags.slice(0, 4).map((tag) => (
+                            <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary text-xs">
                               {tag}
                             </Badge>
                           ))}
+                          {skill.tags.length > 4 && (
+                            <Badge variant="secondary" className="bg-muted text-muted-foreground text-xs">
+                              +{skill.tags.length - 4}
+                            </Badge>
+                          )}
+                        </div>
+
+                        <div className="flex justify-end mt-3">
+                          <span className="text-xs text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            View details <ChevronRight className="h-3 w-3" />
+                          </span>
                         </div>
                       </CardContent>
                     </Card>
@@ -199,6 +256,56 @@ export function SkillsShowcase() {
             </TabsContent>
           ))}
         </Tabs>
+
+        {/* Detailed skill view modal */}
+        <AnimatePresence>
+          {selectedSkill && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={closeDetailView}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ type: "spring", damping: 20 }}
+                className="bg-card border rounded-xl shadow-lg max-w-2xl w-full max-h-[80vh] overflow-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="p-3 rounded-full bg-primary/10 text-primary">{selectedSkill.icon}</div>
+                      <h2 className="text-2xl font-bold">{selectedSkill.name}</h2>
+                    </div>
+                    <button onClick={closeDetailView} className="p-2 rounded-full hover:bg-muted transition-colors">
+                      <X className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  <div className="mb-6">
+                    <h3 className="text-lg font-medium mb-2">Description</h3>
+                    <p className="text-muted-foreground">{selectedSkill.description}</p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-medium mb-3">Technologies & Skills</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedSkill.tags.map((tag) => (
+                        <Badge key={tag} className="bg-primary/10 text-primary px-3 py-1">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   )
