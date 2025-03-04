@@ -82,7 +82,8 @@ export function HeroSection() {
             Explore My Public Work
           </motion.button>
           <Link 
-            href="/resume.pdf" 
+            href="/myresume.pdf" 
+            download="Kiflom Berihu Abay Resume"
             target="_blank"
             className="bg-secondary text-secondary-foreground px-4 md:px-6 py-2 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-secondary/90 transition-colors w-full md:w-auto text-center"
           >

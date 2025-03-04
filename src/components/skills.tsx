@@ -292,7 +292,7 @@ export function SkillsShowcase() {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-medium mb-3">Technologies & Skills</h3>
+                    <h3 className="text-lg font-medium mb-3"> </h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedSkill.tags.map((tag) => (
                         <Badge key={tag} className="bg-primary/10 text-primary px-3 py-1">
