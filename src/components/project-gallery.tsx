@@ -20,25 +20,25 @@ const projects = [
     description: "A mobile app for authentication with real-time updates and offline support.",
     image: "/expo.png", 
     tags: ["React Native", "Firebase", "Redux", "Expo"],
-    liveUrl: "https://expo-auth-demo.com",
+    liveUrl: "https://expo.dev/accounts/march6/projects/tugza_sync/builds/6336f381-d999-4716-9e08-2dca4b4f8707",
     githubUrl: "https://github.com/kiflomm/expoplusexpress",
   },
-  {
-    title: "Social Media Dashboard",
-    description: "Comprehensive analytics dashboard for social media managers with data visualization and reporting features.",
-    image: "/placeholder.svg?height=300&width=400",
-    tags: ["React", "D3.js", "Node.js", "MongoDB"],
-    liveUrl: "https://dashboard-demo.com", 
-    githubUrl: "https://github.com/username/dashboard",
-  },
-  {
-    title: "AI-powered Chatbot",
-    description: "Intelligent conversational agent using natural language processing and machine learning algorithms.",
-    image: "/placeholder.svg?height=300&width=400",
-    tags: ["Python", "TensorFlow", "NLP", "FastAPI"],
-    liveUrl: "https://chatbot-demo.com",
-    githubUrl: "https://github.com/username/chatbot",
-  },
+  // {
+  //   title: "Social Media Dashboard",
+  //   description: "Comprehensive analytics dashboard for social media managers with data visualization and reporting features.",
+  //   image: "/placeholder.svg?height=300&width=400",
+  //   tags: ["React", "D3.js", "Node.js", "MongoDB"],
+  //   liveUrl: "https://dashboard-demo.com", 
+  //   githubUrl: "https://github.com/username/dashboard",
+  // },
+  // {
+  //   title: "AI-powered Chatbot",
+  //   description: "Intelligent conversational agent using natural language processing and machine learning algorithms.",
+  //   image: "/placeholder.svg?height=300&width=400",
+  //   tags: ["Python", "TensorFlow", "NLP", "FastAPI"],
+  //   liveUrl: "https://chatbot-demo.com",
+  //   githubUrl: "https://github.com/username/chatbot",
+  // },
 ]
 
 export function ProjectGallery() {
