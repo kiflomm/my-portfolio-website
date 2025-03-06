@@ -77,6 +77,7 @@ export function HeroSection() {
           className="flex flex-col md:flex-row justify-center gap-4 px-4 md:px-0"
         >
           <motion.button
+            onClick={() => window.open('https://github.com/kiflomm', '_blank')}
             className="bg-primary text-primary-foreground px-4 md:px-6 py-2 md:py-3 rounded-full text-base md:text-lg font-semibold hover:bg-primary/90 transition-colors w-full md:w-auto"
           >
             Explore My Public Work

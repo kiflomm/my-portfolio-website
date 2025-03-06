@@ -12,7 +12,7 @@ import { Card } from "@/components/ui/card"
 export function ContactForm() {
   const [formState, setFormState] = useState({
     name: "",
-    email: "",
+    email: "", 
     phone: "",
     message: "",
   })
@@ -33,7 +33,6 @@ export function ContactForm() {
         throw new Error('Failed to send message')
       }
 
-      // Reset form
       setFormState({ name: "", email: "", phone: "", message: "" })
       alert('Message sent successfully!')
     } catch (error) {
@@ -45,166 +44,140 @@ export function ContactForm() {
   }
 
   return (
-    <section className="py-20 min-h-screen bg-gradient-to-b from-muted to-background flex items-center">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-gradient-to-b from-background to-muted">
+      <div className="container px-4 mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="max-w-3xl mx-auto text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
-            Let{`'`}s Connect
-          </h2>
-          <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
-            Have a project in mind or just want to chat? Feel free to reach out. I{`'`}m always excited to collaborate on interesting projects and discuss new opportunities.
+          <h2 className="text-5xl font-bold mb-6">Get in Touch</h2>
+          <div className="h-1 w-20 bg-primary mx-auto mb-6"></div>
+          <p className="text-lg text-muted-foreground">
+            Have a project in mind? Let's connect and explore how I can help bring your ideas to life. Whether it's web development, mobile apps, or technical consulting, I'm here to help.
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          <Card className="p-8 backdrop-blur-sm bg-card/50">
-            <div className="grid md:grid-cols-2 gap-12">
-              {/* Contact Info */}
-              <div className="space-y-6">
-                <h3 className="text-2xl font-semibold">Contact Information</h3>
-                <p className="text-muted-foreground">
-                  Feel free to reach out through any of these channels:
-                </p>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-3 rounded-full bg-primary/10">
-                      <Mail className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Email</p>
-                      <a href="mailto:kiflomberihu@outlook.com" className="text-muted-foreground hover:text-primary transition-colors">
-                        kiflomberihu@outlook.com
-                      </a>
-                    </div>
+        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="lg:col-span-2"
+          >
+            <Card className="p-8 h-full bg-card/50 backdrop-blur-sm">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <Input
+                      type="text"
+                      placeholder="Your Name"
+                      value={formState.name}
+                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                      className="bg-background/50"
+                      required
+                    />
                   </div>
-
-                  <div className="flex items-center space-x-3">
-                    <div className="p-3 rounded-full bg-primary/10">
-                      <Phone className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Phone</p>
-                      <a href="tel:+251937409088" className="text-muted-foreground hover:text-primary transition-colors">
-                        +251 937 409 088
-                      </a>
-                    </div>
+                  <div>
+                    <Input
+                      type="email"
+                      placeholder="Your Email"
+                      value={formState.email}
+                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                      className="bg-background/50"
+                      required
+                    />
                   </div>
                 </div>
-              </div>
-
-              {/* Contact Form */}
-              <motion.form
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-                onSubmit={handleSubmit}
-                className="space-y-6"
-              >
-                <div className="grid grid-cols-1 gap-6">
-                  <div className="relative">
-                    <label htmlFor="name" className="text-sm font-medium mb-2 block">
-                      Name
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="text"
-                        id="name"
-                        value={formState.name}
-                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        className="pl-10 bg-background/50"
-                        placeholder="Your name"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <label htmlFor="email" className="text-sm font-medium mb-2 block">
-                      Email
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="email"
-                        id="email"
-                        value={formState.email}
-                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        className="pl-10 bg-background/50"
-                        placeholder="yourname@email.com"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <label htmlFor="phone" className="text-sm font-medium mb-2 block">
-                      Phone (Optional)
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="tel"
-                        id="phone"
-                        value={formState.phone}
-                        onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                        className="pl-10 bg-background/50"
-                        placeholder="Your phone number"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <label htmlFor="message" className="text-sm font-medium mb-2 block">
-                      Message
-                    </label>
-                    <div className="relative">
-                      <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Textarea
-                        id="message"
-                        value={formState.message}
-                        onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                        className="pl-10 min-h-[150px] bg-background/50"
-                        placeholder="Your message..."
-                        required
-                      />
-                    </div>
-                  </div>
+                <div>
+                  <Input
+                    type="tel"
+                    placeholder="Phone Number (Optional)"
+                    value={formState.phone}
+                    onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                    className="bg-background/50"
+                  />
                 </div>
-
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <div>
+                  <Textarea
+                    placeholder="Your Message"
+                    value={formState.message}
+                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    className="min-h-[200px] bg-background/50"
+                    required
+                  />
+                </div>
+                <Button 
+                  type="submit"
+                  className="w-full"
+                  disabled={isSubmitting}
                 >
-                  <Button 
-                    type="submit" 
-                    className="w-full font-semibold"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
+                  {isSubmitting ? (
+                    <>
                       <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="mr-2"
                       >
-                        <Send className="h-4 w-4 mr-2" />
+                        <Send className="h-4 w-4" />
                       </motion.div>
-                    ) : (
+                      Sending...
+                    </>
+                  ) : (
+                    <>
                       <Send className="h-4 w-4 mr-2" />
-                    )}
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </motion.div>
-              </motion.form>
-            </div>
-          </Card>
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Card className="p-8 h-full bg-primary text-primary-foreground">
+              <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 rounded-full bg-primary-foreground/10">
+                    <Mail className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="font-medium">Email</p>
+                    <a href="mailto:kiflomberihu@outlook.com" className="hover:underline">
+                      kiflomberihu@outlook.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 rounded-full bg-primary-foreground/10">
+                    <Phone className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="font-medium">Phone</p>
+                    <a href="tel:+251937409088" className="hover:underline">
+                      +251 937 409 088
+                    </a>
+                  </div>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-primary-foreground/20">
+                  <p className="text-sm">
+                    Available for freelance opportunities. Let's create something amazing together.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
         </div>
       </div>
     </section>
