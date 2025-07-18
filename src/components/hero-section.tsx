@@ -36,7 +36,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-xl md:text-2xl mb-8"
         >
-          Fullstack Web Developer & Mobile App Developer
+          Full Stack Developer | Web & Mobile Applications
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
