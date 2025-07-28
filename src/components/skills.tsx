@@ -4,7 +4,6 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Code, Database, Globe, Server, Settings, Terminal, ChevronRight, X, Smartphone, MessageSquare, Cloud } from "lucide-react"
 import { ReactNode } from "react"
 
