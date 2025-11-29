@@ -4,12 +4,11 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Code, Database, Globe, Server, Settings, Terminal, ChevronRight, X, Smartphone, MessageSquare, Cloud } from "lucide-react"
+import { Code, Database, Globe, Server, Settings, Terminal, X, Smartphone, MessageSquare, Cloud } from "lucide-react"
 import { ReactNode } from "react"
 
 interface Skill {
   name: string
-  description: string
   tags: string[]
   icon: ReactNode
 }
@@ -25,7 +24,6 @@ const categoryIcons = {
   "Mobile App Development": <Smartphone className="h-5 w-5" />,
   "Database and ORM": <Database className="h-5 w-5" />,
   "DevOps & Tools": <Settings className="h-5 w-5" />,
-  "Operating Systems": <Terminal className="h-5 w-5" />,
   "Communication Languages": <MessageSquare className="h-5 w-5" />,
 }
 
@@ -34,25 +32,21 @@ const skills: SkillCategories = {
   Frontend: [
     {
       name: "React",
-      description: "Building complex web applications with React hooks, context, and modern patterns",
       tags: ["Hooks", "Context", "Redux", "Zustand", "React Query"],
       icon: <Code className="h-6 w-6" />,
     },
     {
       name: "Next.js",
-      description: "Creating performant full-stack applications with server-side rendering and API routes",
       tags: ["SSR", "API Routes", "Static Generation", "App Router"],
       icon: <Globe className="h-6 w-6" />,
     },
     {
       name: "Vue.js",
-      description: "Building reactive and component-based user interfaces with Vue.js framework",
       tags: ["Composition API", "Options API", "Vuex", "Pinia", "Vue Router"],
       icon: <Code className="h-6 w-6" />,
     },
     {
       name: "Tailwind CSS",
-      description: "Crafting responsive and modern UI designs with utility-first CSS",
       tags: ["Responsive Design", "Custom Themes", "Animations", "Shadcn UI", "Material UI"],
       icon: <Code className="h-6 w-6" />,
     },
@@ -60,25 +54,21 @@ const skills: SkillCategories = {
   Backend: [
     {
       name: "Node.js",
-      description: "Building scalable server-side applications and REST APIs",
       tags: ["Express", "REST APIs", "Middleware", "Authentication"],
       icon: <Server className="h-6 w-6" />,
     },
     {
       name: "Express",
-      description: "Creating robust backend services with middleware and routing",
       tags: ["Routing", "Error Handling", "Security"],
       icon: <Server className="h-6 w-6" />,
     },
     {
       name: "Laravel",
-      description: "Building modern web applications with the Laravel PHP framework",
       tags: ["Eloquent ORM", "Blade Templates", "Artisan CLI", "Migrations", "Authentication"],
       icon: <Server className="h-6 w-6" />,
     },
     {
       name: "GraphQL",
-      description: "Designing efficient and flexible APIs with GraphQL schema and resolvers",
       tags: ["Apollo", "Schema Design", "Resolvers"],
       icon: <Database className="h-6 w-6" />,
     },
@@ -86,7 +76,6 @@ const skills: SkillCategories = {
   "Mobile App Development": [
     {
       name: "Expo",
-      description: "Building mobile applications using the React native Expo framework",
       tags: ["React Native", "Expo", "Cross-Platform"],
       icon: <Code className="h-6 w-6" />,
     },
@@ -94,19 +83,16 @@ const skills: SkillCategories = {
   "Database and ORM": [
     {
       name: "NoSQL Databases",
-      description: "Working with NoSQL databases, aggregation pipelines, and schemas",
       tags: ["MongoDB", "Aggregation", "Indexing"],
       icon: <Database className="h-6 w-6" />,
     },
     {
       name: "Relational Databases",
-      description: "Managing relational databases with complex queries and optimizations",
       tags: ["SQL", "PostgreSQL", "MySQL", "Migrations"],
       icon: <Database className="h-6 w-6" />,
     },
     {
       name: "ORMs",
-      description: "Expertise in database Object-Relational Mapping tools",
       tags: ["Prisma", "Drizzle", "Type Safety", "Migrations"],
       icon: <Database className="h-6 w-6" />,
     },
@@ -114,33 +100,26 @@ const skills: SkillCategories = {
   "DevOps & Tools": [
     {
       name: "Version Control",
-      description: "Proficient in Git version control and collaboration",
       tags: ["Git", "GitHub", "Branching", "CI/CD"],
       icon: <Code className="h-6 w-6" />,
     },
     {
       name: "Docker",
-      description: "Containerizing applications and managing multi-container environments",
       tags: ["Containers", "Docker Compose", "Networking"],
       icon: <Settings className="h-6 w-6" />,
     },
     {
       name: "Cloud Services",
-      description: "Deploying and managing cloud infrastructure and services",
       tags: ["Vercel", "Coolify", "Hostinger", "Supabase", "Railway", "Firebase"],
       icon: <Cloud className="h-6 w-6" />,
     },
-  ],
-  "Operating Systems": [
     {
       name: "Linux",
-      description: "Experience with Linux-based operating systems",
       tags: ["Ubuntu", "Kali Linux", "Terminal", "Shell Scripting"],
       icon: <Terminal className="h-6 w-6" />,
     },
     {
       name: "Windows",
-      description: "Proficient in Windows environment and development",
       tags: ["Windows 11", "PowerShell", "WSL"],
       icon: <Terminal className="h-6 w-6" />,
     },
@@ -148,19 +127,16 @@ const skills: SkillCategories = {
   "Communication Languages": [
     {
       name: "English",
-      description: "Professional proficiency in English communication",
       tags: ["Speaking", "Writing", "Technical Documentation"],
       icon: <Globe className="h-6 w-6" />,
     },
     {
       name: "Amharic",
-      description: "Fluent in Amharic communication",
       tags: ["Speaking", "Writing"],
       icon: <Globe className="h-6 w-6" />,
     },
     {
       name: "Tigrigna",
-      description: "Fluent in Tigrigna communication",
       tags: ["Speaking", "Writing"],
       icon: <Globe className="h-6 w-6" />,
     },
@@ -169,18 +145,7 @@ const skills: SkillCategories = {
 
 export function SkillsShowcase() {
   const [activeCategory, setActiveCategory] = useState("Frontend")
-  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null)
   const [showMobileSkills, setShowMobileSkills] = useState(false)
-
-  // Handle skill click for detailed view
-  const handleSkillClick = (skill: Skill) => {
-    setSelectedSkill(skill)
-  }
-
-  // Close detailed view
-  const closeDetailView = () => {
-    setSelectedSkill(null)
-  }
 
   // Handle category selection on mobile
   const handleCategorySelect = (category: string) => {
@@ -374,8 +339,6 @@ export function SkillsShowcase() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      onClick={() => handleSkillClick(skill)}
-                      className="cursor-pointer"
                     >
                       <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50 overflow-hidden group">
                         <CardContent className="p-6">
@@ -386,25 +349,12 @@ export function SkillsShowcase() {
                             <h3 className="text-lg font-semibold">{skill.name}</h3>
                           </div>
 
-                          <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{skill.description}</p>
-
                           <div className="flex flex-wrap gap-1.5 mt-auto">
-                            {skill.tags.slice(0, 4).map((tag) => (
+                            {skill.tags.map((tag) => (
                               <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary text-xs">
                                 {tag}
                               </Badge>
                             ))}
-                            {skill.tags.length > 4 && (
-                              <Badge variant="secondary" className="bg-muted text-muted-foreground text-xs">
-                                +{skill.tags.length - 4}
-                              </Badge>
-                            )}
-                          </div>
-
-                          <div className="flex justify-end mt-3">
-                            <span className="text-xs text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                              View details <ChevronRight className="h-3 w-3" />
-                            </span>
                           </div>
                         </CardContent>
                       </Card>
@@ -469,8 +419,6 @@ export function SkillsShowcase() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: index * 0.1 }}
-                        onClick={() => handleSkillClick(skill)}
-                        className="cursor-pointer"
                       >
                         <Card className="transition-all duration-300 hover:shadow-lg hover:border-primary/50 overflow-hidden group">
                           <CardContent className="p-4">
@@ -481,80 +429,17 @@ export function SkillsShowcase() {
                               <h3 className="text-lg font-semibold">{skill.name}</h3>
                             </div>
 
-                            <p className="text-sm text-muted-foreground mb-3">{skill.description}</p>
-
                             <div className="flex flex-wrap gap-1.5">
-                              {skill.tags.slice(0, 3).map((tag) => (
+                              {skill.tags.map((tag) => (
                                 <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary text-xs">
                                   {tag}
                                 </Badge>
                               ))}
-                              {skill.tags.length > 3 && (
-                                <Badge variant="secondary" className="bg-muted text-muted-foreground text-xs">
-                                  +{skill.tags.length - 3}
-                                </Badge>
-                              )}
-                            </div>
-
-                            <div className="flex justify-end mt-3">
-                              <span className="text-xs text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                View details <ChevronRight className="h-3 w-3" />
-                              </span>
                             </div>
                           </CardContent>
                         </Card>
                       </motion.div>
                     ))}
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Detailed skill view modal */}
-        <AnimatePresence>
-          {selectedSkill && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-              onClick={closeDetailView}
-            >
-              <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                transition={{ type: "spring", damping: 20 }}
-                className="bg-card border rounded-xl shadow-lg max-w-2xl w-full max-h-[80vh] overflow-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-full bg-primary/10 text-primary">{selectedSkill.icon}</div>
-                      <h2 className="text-2xl font-bold">{selectedSkill.name}</h2>
-                    </div>
-                    <button onClick={closeDetailView} className="p-2 rounded-full hover:bg-muted transition-colors">
-                      <X className="h-5 w-5" />
-                    </button>
-                  </div>
-
-                  <div className="mb-6">
-                    <h3 className="text-lg font-medium mb-2">Description</h3>
-                    <p className="text-muted-foreground">{selectedSkill.description}</p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-medium mb-3">Technologies & Tools</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedSkill.tags.map((tag) => (
-                        <Badge key={tag} className="bg-primary/10 text-primary px-3 py-1">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </motion.div>
