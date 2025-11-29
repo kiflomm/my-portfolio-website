@@ -74,7 +74,7 @@ function CodeSnippet({ code, delay = 0, position = "top" }: { code: string; dela
         delay,
         opacity: { times: [0, 0.5, 1] }
       }}
-      className="text-xs md:text-sm font-mono leading-relaxed select-none pointer-events-none opacity-70 dark:opacity-60"
+      className="text-xs md:text-sm font-mono leading-relaxed select-none pointer-events-none opacity-70 dark:opacity-60 max-h-64 overflow-hidden"
     >
       {lines.map((line, i) => (
         <motion.div
@@ -110,7 +110,7 @@ export function HeroSection() {
 
   const codeSnippets = [
     {
-      code: `// Welcome to my portfolio\nconst developer = {\n  name: "Kiflom Berihu",\n  role: "Full Stack Developer",\n  skills: ["React", "Next.js", "Node.js"]\n}`,
+      code: `// Welcome to my portfolio\nconst developer = {\n  name: "Kiflom Berihu",\n  role: "Full Stack Developer",\n  nickName: "The Brogrammer",\n  backEnd: ["Nest.js","Express.js","Laravel"],\n  mobileApp: ["Flutter","Expo"],\n  frontEnd: ["React.js","Next.js","Vue.js"]\n}`,
       delay: 0.2,
       position: "top" as const,
     },
@@ -120,7 +120,7 @@ export function HeroSection() {
       position: "bottom" as const,
     },
     {
-      code: `export const Hero = () => {\n  return <Code />\n}`,
+      code: `export const Kiflom = () => {\n  return <Brogrammer />\n}`,
       delay: 0.6,
       position: "top" as const,
     },
@@ -179,7 +179,7 @@ export function HeroSection() {
       {/* Animated Code Snippets Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-20">
         <motion.div
-          className="absolute top-20 left-4 md:left-6 lg:left-8 opacity-30 md:opacity-70"
+          className="absolute top-20 left-4 md:left-6 lg:left-8 opacity-30 md:opacity-70 max-w-xs md:max-w-sm"
           animate={{
             y: [0, -10, 0],
           }}
@@ -192,7 +192,7 @@ export function HeroSection() {
           <CodeSnippet code={codeSnippets[0].code} delay={codeSnippets[0].delay} position={codeSnippets[0].position} />
         </motion.div>
         <motion.div
-          className="absolute top-1/3 left-4 md:left-6 lg:left-8 opacity-30 md:opacity-70"
+          className="absolute top-1/2 md:bottom-40 left-4 md:left-auto md:right-6 lg:right-8 opacity-30 md:opacity-70 max-w-xs md:max-w-sm"
           animate={{
             y: [0, 10, 0],
           }}
@@ -205,7 +205,7 @@ export function HeroSection() {
           <CodeSnippet code={codeSnippets[1].code} delay={codeSnippets[1].delay} position={codeSnippets[1].position} />
         </motion.div>
         <motion.div
-          className="absolute bottom-20 left-4 md:left-6 lg:left-8 hidden md:block"
+          className="absolute bottom-20 left-4 md:left-6 lg:left-8 hidden md:block max-w-xs md:max-w-sm"
           animate={{
             y: [0, -5, 0],
           }}
@@ -393,6 +393,48 @@ export function HeroSection() {
                 />
               </Link>
             </motion.div>
+
+            <motion.button
+              onClick={() => {
+                // Placeholder for AI assistant functionality
+                console.log("AI Assistant clicked")
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 2.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative w-full sm:w-auto px-4 md:px-8 py-2.5 md:py-4 rounded-lg bg-gradient-to-r from-purple-500 via-cyan-500 to-blue-500 text-white font-semibold text-xs md:text-base overflow-hidden border-2 border-purple-500/50 shadow-lg shadow-purple-500/20 dark:shadow-purple-500/30"
+            >
+              <span className="relative z-10 flex items-center justify-center gap-1.5 md:gap-2">
+                <svg className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                <span className="hidden sm:inline">Ask AI About Me</span>
+                <span className="sm:hidden">Ask AI</span>
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-600 via-cyan-600 to-blue-600"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                animate={{
+                  background: [
+                    "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
+                    "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)",
+                  ],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </motion.button>
           </motion.div>
       </motion.div>
     </section>
