@@ -332,7 +332,7 @@ export function SkillsShowcase() {
                   <div className="w-16 h-1 bg-primary rounded-full" />
                 </div>
                 
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-6">
                   {skills[activeCategory].map((skill, index) => (
                     <motion.div
                       key={`${skill.name}-${index}`}
