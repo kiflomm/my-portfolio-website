@@ -2,7 +2,6 @@
 import { HeroSection } from "@/components/hero-section"
 import { SkillsShowcase } from "@/components/skills"
 import { ProjectGallery } from "@/components/project-gallery"
-import { ContactForm } from "@/components/contact-form"
 import { CustomCursor } from "@/components/custom-cursor"
 import { EducationWork } from "@/components/education-work"
 import { motion } from "framer-motion"
@@ -39,10 +38,6 @@ export default function Home() {
 
       <section id="projects">
         <ProjectGallery />
-      </section>
-
-      <section id="contact">
-        <ContactForm />
       </section>
 
       {/* Scroll indicator */}
