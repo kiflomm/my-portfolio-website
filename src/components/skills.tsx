@@ -1,23 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import { Code, Database, Globe, Server, Settings, Terminal, X, Smartphone, MessageSquare, Cloud } from "lucide-react"
-import { ReactNode } from "react"
 
 interface Skill {
   name: string
   tags: string[]
-  icon: ReactNode
+  icon: React.ReactNode
 }
 
 type SkillCategories = {
   [key: string]: Skill[]
 }
 
-// Category icons mapping
 const categoryIcons = {
   Frontend: <Code className="h-5 w-5" />,
   Backend: <Server className="h-5 w-5" />,
@@ -27,420 +25,370 @@ const categoryIcons = {
   "Communication Languages": <MessageSquare className="h-5 w-5" />,
 }
 
-// Remove proficiency from skills data
 const skills: SkillCategories = {
   Frontend: [
     {
       name: "React",
       tags: ["Hooks", "Context", "Redux", "Zustand", "React Query"],
-      icon: <Code className="h-6 w-6" />,
+      icon: <Code className="h-6 w-6 text-blue-500" />,
     },
     {
       name: "Next.js",
       tags: ["SSR", "API Routes", "Static Generation", "App Router"],
-      icon: <Globe className="h-6 w-6" />,
+      icon: <Globe className="h-6 w-6 text-indigo-500" />,
     },
     {
       name: "Vue.js",
-      tags: ["Composition API", "Options API", "Vuex", "Pinia", "Vue Router"],
-      icon: <Code className="h-6 w-6" />,
+      tags: ["Composition API", "Pinia", "Vue Router", "Nuxt.js"],
+      icon: <Code className="h-6 w-6 text-emerald-500" />,
     },
     {
       name: "Tailwind CSS",
-      tags: ["Responsive Design", "Custom Themes", "Animations", "Shadcn UI", "Material UI"],
-      icon: <Code className="h-6 w-6" />,
+      tags: ["Responsive Design", "Custom Themes", "Animations", "Shadcn UI"],
+      icon: <Code className="h-6 w-6 text-cyan-400" />,
     },
   ],
   Backend: [
     {
       name: "Node.js",
       tags: ["Express", "REST APIs", "Middleware", "Authentication"],
-      icon: <Server className="h-6 w-6" />,
+      icon: <Server className="h-6 w-6 text-green-600" />,
     },
     {
       name: "Express",
       tags: ["Routing", "Error Handling", "Security"],
-      icon: <Server className="h-6 w-6" />,
+      icon: <Server className="h-6 w-6 text-neutral-500" />,
     },
     {
       name: "Laravel",
-      tags: ["Eloquent ORM", "Blade Templates", "Artisan CLI", "Migrations", "Authentication"],
-      icon: <Server className="h-6 w-6" />,
+      tags: ["Eloquent ORM", "Blade", "Artisan CLI", "Migrations"],
+      icon: <Server className="h-6 w-6 text-rose-600" />,
     },
     {
       name: "GraphQL",
       tags: ["Apollo", "Schema Design", "Resolvers"],
-      icon: <Database className="h-6 w-6" />,
+      icon: <Database className="h-6 w-6 text-pink-500" />,
     },
   ],
   "Mobile App Development": [
     {
-      name: "Expo",
-      tags: ["React Native", "Expo", "Cross-Platform"],
-      icon: <Code className="h-6 w-6" />,
+      name: "Expo & React Native",
+      tags: ["Expo Router", "Cross-Platform", "Native Modules", "Offline Support"],
+      icon: <Smartphone className="h-6 w-6 text-purple-500" />,
     },
   ],
   "Database and ORM": [
     {
       name: "NoSQL Databases",
-      tags: ["MongoDB", "Aggregation", "Indexing"],
-      icon: <Database className="h-6 w-6" />,
+      tags: ["MongoDB", "Aggregation", "Indexing", "Mongoose"],
+      icon: <Database className="h-6 w-6 text-emerald-600" />,
     },
     {
       name: "Relational Databases",
-      tags: ["SQL", "PostgreSQL", "MySQL", "Migrations"],
-      icon: <Database className="h-6 w-6" />,
+      tags: ["PostgreSQL", "MySQL", "SQL Queries", "JSONB fields"],
+      icon: <Database className="h-6 w-6 text-blue-600" />,
     },
     {
       name: "ORMs",
-      tags: ["Prisma", "Drizzle", "Type Safety", "Migrations"],
-      icon: <Database className="h-6 w-6" />,
+      tags: ["Prisma", "Drizzle", "Type Safety", "Auto-Migrations"],
+      icon: <Database className="h-6 w-6 text-indigo-600" />,
     },
   ],
   "DevOps & Tools": [
     {
       name: "Version Control",
-      tags: ["Git", "GitHub", "Branching", "CI/CD"],
-      icon: <Code className="h-6 w-6" />,
+      tags: ["Git", "GitHub Actions", "CI/CD Workflows"],
+      icon: <Code className="h-6 w-6 text-orange-500" />,
     },
     {
       name: "Docker",
-      tags: ["Containers", "Docker Compose", "Networking"],
-      icon: <Settings className="h-6 w-6" />,
+      tags: ["Containers", "Docker Compose", "Images", "Networking"],
+      icon: <Settings className="h-6 w-6 text-sky-500" />,
     },
     {
       name: "Cloud Services",
       tags: ["Vercel", "Coolify", "Hostinger", "Supabase", "Railway", "Firebase"],
-      icon: <Cloud className="h-6 w-6" />,
+      icon: <Cloud className="h-6 w-6 text-cyan-500" />,
     },
     {
-      name: "Linux",
-      tags: ["Ubuntu", "Kali Linux", "Terminal", "Shell Scripting"],
-      icon: <Terminal className="h-6 w-6" />,
-    },
-    {
-      name: "Windows",
-      tags: ["Windows 11", "PowerShell", "WSL"],
-      icon: <Terminal className="h-6 w-6" />,
+      name: "Linux & Shell",
+      tags: ["Ubuntu", "Kali Linux", "Bash Scripting", "SSH & Server Config"],
+      icon: <Terminal className="h-6 w-6 text-yellow-500" />,
     },
   ],
   "Communication Languages": [
     {
       name: "English",
-      tags: ["Speaking", "Writing", "Technical Documentation"],
-      icon: <Globe className="h-6 w-6" />,
+      tags: ["Fluent Speaking", "Technical Documentation", "Client Consultation"],
+      icon: <Globe className="h-6 w-6 text-indigo-400" />,
     },
     {
       name: "Amharic",
-      tags: ["Speaking", "Writing"],
-      icon: <Globe className="h-6 w-6" />,
+      tags: ["Native/Bilingual", "Written & Spoken"],
+      icon: <Globe className="h-6 w-6 text-orange-400" />,
     },
     {
       name: "Tigrigna",
-      tags: ["Speaking", "Writing"],
-      icon: <Globe className="h-6 w-6" />,
+      tags: ["Native/Bilingual", "Written & Spoken"],
+      icon: <Globe className="h-6 w-6 text-red-400" />,
     },
   ],
+}
+
+// Glowing Card component that updates mouse positions dynamically
+function GlowingCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    card.style.setProperty("--mouse-x", `${x}px`)
+    card.style.setProperty("--mouse-y", `${y}px`)
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      className={`radial-glow-card radial-glow-border glass-card rounded-2xl relative overflow-hidden transition-all duration-300 ${className}`}
+    >
+      {children}
+    </div>
+  )
 }
 
 export function SkillsShowcase() {
   const [activeCategory, setActiveCategory] = useState("Frontend")
   const [showMobileSkills, setShowMobileSkills] = useState(false)
 
-  // Handle category selection on mobile
   const handleCategorySelect = (category: string) => {
     setActiveCategory(category)
     setShowMobileSkills(true)
   }
 
-  // Close mobile skills view
-  const closeMobileSkills = () => {
-    setShowMobileSkills(false)
-  }
-
   return (
-    <section className="py-12 md:py-20 min-h-screen flex items-center bg-gradient-to-b from-background via-background to-muted/50">
-      <div className="container mx-auto px-4">
-        {/* Header with animated gradient text */}
+    <section className="py-20 md:py-32 min-h-screen flex items-center bg-gradient-to-b from-background via-background/95 to-background relative">
+      {/* Background Decorative Blur */}
+      <div className="absolute top-[20%] right-[-10%] w-[35%] h-[35%] rounded-full bg-purple-600/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[-10%] w-[35%] h-[35%] rounded-full bg-indigo-600/5 blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-4 max-w-6xl z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold relative">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/80 to-primary/50 animate-gradient">
-              Technical Expertise
-            </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+            Technical Expertise
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
-            A comprehensive showcase of my technical skills and proficiencies across various domains
+          <div className="h-1 w-20 bg-primary mx-auto mb-6 rounded-full" />
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+            A comprehensive overview of my software engineering capabilities and toolkit.
           </p>
         </motion.div>
 
-        {/* Modern Category Navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          {/* Mobile/Tablet Layout - Grid */}
-          <div className="lg:hidden">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-              {Object.keys(skills).map((category, index) => (
-                <motion.div
-                  key={category}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <button
-                    onClick={() => handleCategorySelect(category)}
-                    className={`w-full p-6 rounded-2xl border-2 transition-all duration-300 group relative overflow-hidden
-                      ${activeCategory === category 
-                        ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20' 
-                        : 'border-border bg-card hover:border-primary/50 hover:bg-primary/5 hover:shadow-md'
-                      }
-                    `}
-                  >
-                    {/* Background gradient effect */}
-                    <div className={`absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                    
-                    {/* Content */}
-                    <div className="relative z-10 flex flex-col items-center text-center space-y-3">
-                      {/* Icon */}
-                      <div className={`p-3 rounded-full transition-all duration-300 ${
-                        activeCategory === category 
-                          ? 'bg-primary text-primary-foreground shadow-lg' 
-                          : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground'
-                      }`}>
-                        {categoryIcons[category as keyof typeof categoryIcons]}
-                      </div>
-                      
-                      {/* Category name */}
-                      <div>
-                        <h4 className={`font-semibold text-sm transition-colors duration-300 ${
-                          activeCategory === category 
-                            ? 'text-primary' 
-                            : 'text-foreground group-hover:text-primary'
-                        }`}>
-                          {category}
-                        </h4>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {skills[category].length} skill{skills[category].length !== 1 ? 's' : ''}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Active indicator */}
-                    {activeCategory === category && (
-                      <motion.div
-                        layoutId="activeIndicator"
-                        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary rounded-full"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      />
-                    )}
-                  </button>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop Layout - Side by Side */}
-          <div className="hidden lg:flex gap-8">
-            {/* Categories Sidebar */}
-            <div className="w-80 flex-shrink-0">
-              <div className="space-y-3">
-                {Object.keys(skills).map((category, index) => (
-                  <motion.div
-                    key={category}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <button
-                      onClick={() => setActiveCategory(category)}
-                      className={`w-full p-4 rounded-xl border-2 transition-all duration-300 group relative overflow-hidden text-left
-                        ${activeCategory === category 
-                          ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20' 
-                          : 'border-border bg-card hover:border-primary/50 hover:bg-primary/5 hover:shadow-md'
-                        }
-                      `}
-                    >
-                      {/* Background gradient effect */}
-                      <div className={`absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                      
-                      {/* Content */}
-                      <div className="relative z-10 flex items-center gap-4">
-                        {/* Icon */}
-                        <div className={`p-2 rounded-full transition-all duration-300 ${
-                          activeCategory === category 
-                            ? 'bg-primary text-primary-foreground shadow-lg' 
-                            : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground'
-                        }`}>
-                          {categoryIcons[category as keyof typeof categoryIcons]}
-                        </div>
-                        
-                        {/* Category name and count */}
-                        <div className="flex-1">
-                          <h4 className={`font-semibold text-sm transition-colors duration-300 ${
-                            activeCategory === category 
-                              ? 'text-primary' 
-                              : 'text-foreground group-hover:text-primary'
-                          }`}>
-                            {category}
-                          </h4>
-                          <p className="text-xs text-muted-foreground">
-                            {skills[category].length} skill{skills[category].length !== 1 ? 's' : ''}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      {/* Active indicator */}
-                      {activeCategory === category && (
-                        <motion.div
-                          layoutId="activeIndicatorDesktop"
-                          className="absolute right-4 top-1/2 transform -translate-y-1/2 w-2 h-8 bg-primary rounded-full"
-                          initial={false}
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
-                      )}
-                    </button>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Skills Content */}
-            <div className="flex-1">
-              <motion.div
-                key={activeCategory}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+        {/* Categories Navigation Grid (Tablet / Mobile) */}
+        <div className="lg:hidden mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5">
+            {Object.keys(skills).map((category, index) => (
+              <motion.button
+                key={category}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                viewport={{ once: true }}
+                onClick={() => handleCategorySelect(category)}
+                className={`p-4 rounded-xl border text-center transition-all duration-300 flex flex-col items-center gap-2.5 ${
+                  activeCategory === category
+                    ? "bg-primary/10 border-primary text-primary shadow-lg shadow-primary/5"
+                    : "bg-card/50 border-border/80 hover:border-primary/50 text-foreground"
+                }`}
               >
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">{activeCategory}</h3>
-                  <div className="w-16 h-1 bg-primary rounded-full" />
+                <div className={`p-2 rounded-lg ${activeCategory === category ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+                  {categoryIcons[category as keyof typeof categoryIcons]}
+                </div>
+                <div className="text-xs font-semibold">{category}</div>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Side-by-Side Panel */}
+        <div className="hidden lg:flex gap-10 items-stretch">
+          {/* Categories Sidebar */}
+          <div className="w-80 flex-shrink-0 flex flex-col gap-3">
+            {Object.keys(skills).map((category, index) => (
+              <motion.button
+                key={category}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                onClick={() => setActiveCategory(category)}
+                className={`w-full p-4.5 rounded-2xl border text-left flex items-center gap-4 transition-all duration-300 relative ${
+                  activeCategory === category
+                    ? "bg-primary/10 border-primary text-primary shadow-xl shadow-primary/5"
+                    : "bg-card/55 border-border/30 hover:border-primary/30 text-foreground/80 hover:text-foreground"
+                }`}
+              >
+                <div className={`p-2.5 rounded-xl transition-all duration-300 ${
+                  activeCategory === category
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground group-hover:bg-primary/10"
+                }`}>
+                  {categoryIcons[category as keyof typeof categoryIcons]}
                 </div>
                 
-                <div className="grid grid-cols-2 gap-6">
-                  {skills[activeCategory].map((skill, index) => (
-                    <motion.div
-                      key={`${skill.name}-${index}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50 overflow-hidden group">
-                        <CardContent className="p-6">
-                          <div className="flex items-center gap-3 mb-3">
-                            <div className="p-2 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                <div>
+                  <h4 className="font-bold text-sm tracking-wide">{category}</h4>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                    {skills[category].length} core developer skill{skills[category].length !== 1 ? "s" : ""}
+                  </p>
+                </div>
+
+                {activeCategory === category && (
+                  <motion.div
+                    layoutId="activeIndicatorDesktop"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 w-1.5 h-6 bg-primary rounded-full"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Core Content Grid */}
+          <div className="flex-1">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="space-y-6"
+            >
+              <div className="border-b border-border/40 pb-4 mb-6">
+                <h3 className="text-2xl font-bold tracking-tight">{activeCategory}</h3>
+                <p className="text-xs text-muted-foreground mt-1">Core frameworks, languages, and technologies</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-5">
+                {skills[activeCategory].map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                  >
+                    <GlowingCard className="h-full">
+                      <CardContent className="p-6 flex flex-col justify-between h-full z-10 relative">
+                        <div>
+                          <div className="flex items-center gap-3.5 mb-4">
+                            <div className="p-2.5 rounded-xl bg-card border border-border/80 dark:border-border/10 shadow-sm flex items-center justify-center">
                               {skill.icon}
                             </div>
-                            <h3 className="text-lg font-semibold">{skill.name}</h3>
+                            <h4 className="font-bold text-base text-foreground tracking-wide">{skill.name}</h4>
                           </div>
 
                           <div className="flex flex-wrap gap-1.5 mt-auto">
                             {skill.tags.map((tag) => (
-                              <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary text-xs">
+                              <Badge
+                                key={tag}
+                                variant="secondary"
+                                className="bg-primary/5 hover:bg-primary/10 border border-primary/10 text-[10px] sm:text-xs py-0.5 text-foreground/80 transition-colors"
+                              >
                                 {tag}
                               </Badge>
                             ))}
                           </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
+                        </div>
+                      </CardContent>
+                    </GlowingCard>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Mobile Skills Modal */}
+        {/* Mobile drawer display for skills modal */}
         <AnimatePresence>
           {showMobileSkills && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-background/95 backdrop-blur-sm z-40 lg:hidden"
-              onClick={closeMobileSkills}
+              className="fixed inset-0 bg-background/95 backdrop-blur-md z-50 lg:hidden pointer-events-auto"
+              onClick={() => setShowMobileSkills(false)}
             >
               <motion.div
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="absolute bottom-0 left-0 right-0 bg-card border-t-2 border-primary/20 rounded-t-3xl shadow-2xl max-h-[85vh] overflow-hidden"
+                transition={{ type: "spring", damping: 25, stiffness: 220 }}
+                className="absolute bottom-0 left-0 right-0 bg-card border-t border-border/80 dark:border-border/30 rounded-t-3xl shadow-2xl max-h-[80vh] overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Header */}
-                <div className="sticky top-0 bg-card/95 backdrop-blur-sm border-b border-border/50 p-6 pb-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-full bg-primary/10 text-primary">
-                        {categoryIcons[activeCategory as keyof typeof categoryIcons]}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-foreground">{activeCategory}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {skills[activeCategory].length} skill{skills[activeCategory].length !== 1 ? 's' : ''}
-                        </p>
-                      </div>
+                <div className="sticky top-0 bg-card/95 backdrop-blur-sm border-b border-border/50 p-5 flex items-center justify-between z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                      {categoryIcons[activeCategory as keyof typeof categoryIcons]}
                     </div>
-                    <button 
-                      onClick={closeMobileSkills}
-                      className="p-2 rounded-full hover:bg-muted transition-colors"
-                    >
-                      <X className="h-5 w-5" />
-                    </button>
+                    <div>
+                      <h3 className="font-bold text-base text-foreground">{activeCategory}</h3>
+                      <p className="text-xs text-muted-foreground">
+                        {skills[activeCategory].length} skill{skills[activeCategory].length !== 1 ? "s" : ""}
+                      </p>
+                    </div>
                   </div>
                   
-                  {/* Drag indicator */}
-                  <div className="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto" />
+                  <button
+                    onClick={() => setShowMobileSkills(false)}
+                    className="p-2 rounded-full hover:bg-muted text-muted-foreground transition-colors"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
                 </div>
 
-                {/* Skills Content */}
-                <div className="p-6 pt-2 overflow-y-auto max-h-[calc(85vh-120px)]">
-                  <div className="space-y-4">
-                    {skills[activeCategory].map((skill, index) => (
-                      <motion.div
-                        key={`mobile-${skill.name}-${index}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                      >
-                        <Card className="transition-all duration-300 hover:shadow-lg hover:border-primary/50 overflow-hidden group">
-                          <CardContent className="p-4">
-                            <div className="flex items-center gap-3 mb-3">
-                              <div className="p-2 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                                {skill.icon}
-                              </div>
-                              <h3 className="text-lg font-semibold">{skill.name}</h3>
+                {/* Body Content */}
+                <div className="p-5 overflow-y-auto max-h-[calc(80vh-76px)] space-y-4">
+                  {skills[activeCategory].map((skill, index) => (
+                    <motion.div
+                      key={`mobile-${skill.name}`}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <GlowingCard>
+                        <CardContent className="p-5">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="p-2 bg-card rounded-lg border border-border/80 dark:border-border/10">
+                              {skill.icon}
                             </div>
+                            <h4 className="font-bold text-sm tracking-wide">{skill.name}</h4>
+                          </div>
 
-                            <div className="flex flex-wrap gap-1.5">
-                              {skill.tags.map((tag) => (
-                                <Badge key={tag} variant="secondary" className="bg-primary/10 text-primary text-xs">
-                                  {tag}
-                                </Badge>
-                              ))}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {skill.tags.map((tag) => (
+                              <Badge
+                                key={tag}
+                                variant="secondary"
+                                className="bg-primary/5 border border-primary/10 text-[10px] text-foreground/80 py-0.5"
+                              >
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </GlowingCard>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
             </motion.div>

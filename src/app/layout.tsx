@@ -1,11 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Space_Grotesk } from "next/font/google"
+import { Space_Grotesk, Outfit } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] })
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ["latin"],
+  variable: "--font-heading"
+})
+
+const outfit = Outfit({ 
+  subsets: ["latin"],
+  variable: "--font-sans"
+})
 
 export const metadata: Metadata = {
   title: "Kiflom Berihu - Fullstack Developer",
@@ -19,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={spaceGrotesk.className}>
+      <body className={`${outfit.variable} ${spaceGrotesk.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <div className="fixed top-4 right-4 z-50">
             <ThemeToggle />
