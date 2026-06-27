@@ -371,14 +371,14 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex justify-center mb-4 md:mb-5"
+          className="flex justify-center mb-3 md:mb-4"
         >
           <div className="relative group">
             {/* Spinning/pulsing neon ring */}
             <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-r from-primary via-purple-600 to-cyan-500 opacity-60 blur-md group-hover:opacity-90 transition-opacity duration-500 avatar-ring" />
             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-purple-600 to-cyan-500 animate-spin opacity-80 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDuration: "8s" }} />
 
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border-4 border-background bg-card shadow-2xl">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden border-4 border-background bg-card shadow-2xl">
               <Image
                 src="https://res.cloudinary.com/dpheomaz9/image/upload/v1740572514/144546891_fq7aqn.jpg"
                 alt="Kiflom Berihu Abay"
@@ -416,13 +416,12 @@ export function HeroSection() {
           className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-4 max-w-2xl mx-auto"
         >
           {[
-            { href: "mailto:kiflomberihu@outlook.com", icon: "email", label: "Email", hover: "hover:bg-blue-600 hover:text-white" },
-            { href: "tel:+251937409088", icon: "phone", label: "Call", hover: "hover:bg-violet-600 hover:text-white" },
+            { href: "https://www.linkedin.com/in/kiflom-berihu", icon: "linkedin", label: "LinkedIn", hover: "hover:bg-blue-600 hover:text-white" },
             { href: "https://github.com/kiflomm", icon: "github", label: "GitHub", hover: "hover:bg-neutral-800 hover:text-white dark:hover:bg-white dark:hover:text-black" },
             { href: "https://www.upwork.com/freelancers/~011e4bb830aeb14cd2?mp_source=share", icon: "upwork", label: "Upwork", hover: "hover:bg-emerald-600 hover:text-white" },
-            { href: "https://www.linkedin.com/in/kiflom-berihu", icon: "linkedin", label: "LinkedIn", hover: "hover:bg-blue-600 hover:text-white" },
             { href: "https://wa.me/+251937409088", icon: "whatsapp", label: "WhatsApp", hover: "hover:bg-emerald-500 hover:text-white" },
             { href: "https://t.me/brogrammer_kiflom", icon: "telegram", label: "Telegram", hover: "hover:bg-cyan-500 hover:text-white" },
+            { href: "mailto:kiflomberihu@outlook.com", icon: "email", label: "Email", hover: "hover:bg-blue-600 hover:text-white" },
           ].map((social) => (
             <motion.div
               key={social.href}
@@ -437,11 +436,6 @@ export function HeroSection() {
                 {social.icon === "email" && (
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L22 8m-2-3H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V7a2 2 0 00-2-2z" />
-                  </svg>
-                )}
-                {social.icon === "phone" && (
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 )}
                 {social.icon === "github" && (
