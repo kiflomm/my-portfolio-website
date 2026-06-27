@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState, useRef, useCallback } from "react"
 import { AIAssistant } from "@/components/ai-assistant"
+import { Download, FolderKanban, Sparkles } from "lucide-react"
 
 // Typing animation component
 function TypingText({ text, delay = 0 }: { text: string; delay?: number }) {
@@ -102,7 +103,7 @@ function CodeSnippet({ code, delay = 0, position = "top" }: { code: string; dela
   )
 }
 
-function HeroBio() {
+function HeroBio({ onOpenChat }: { onOpenChat: () => void }) {
   const cardRef = useRef<HTMLDivElement>(null)
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -150,6 +151,46 @@ function HeroBio() {
             </span>
             .
           </p>
+
+          <div className="mt-4 pt-3 border-t border-border/40 dark:border-border/15">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+              <Link
+                href="#projects"
+                className="group flex flex-col items-center justify-center gap-0.5 h-9 sm:h-10 px-1.5 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-all border border-primary/20"
+              >
+                <span className="flex items-center gap-1">
+                  <FolderKanban className="w-3 h-3 shrink-0 opacity-90" strokeWidth={2.25} />
+                  <span className="text-[10px] sm:text-[11px] font-semibold leading-none truncate">Projects</span>
+                </span>
+                <span className="text-[8px] sm:text-[9px] opacity-75 leading-none truncate max-w-full">Browse my work</span>
+              </Link>
+
+              <Link
+                href="/myresume_.pdf"
+                download="Kiflom Berihu Abay Resume"
+                target="_blank"
+                className="group flex flex-col items-center justify-center gap-0.5 h-9 sm:h-10 px-1.5 rounded-lg bg-background/60 dark:bg-background/30 text-foreground hover:bg-background/90 dark:hover:bg-background/50 transition-all border border-border/60 dark:border-border/25"
+              >
+                <span className="flex items-center gap-1">
+                  <Download className="w-3 h-3 shrink-0 opacity-80" strokeWidth={2.25} />
+                  <span className="text-[10px] sm:text-[11px] font-semibold leading-none truncate">Resume</span>
+                </span>
+                <span className="text-[8px] sm:text-[9px] text-muted-foreground leading-none truncate max-w-full">Download PDF</span>
+              </Link>
+
+              <button
+                type="button"
+                onClick={onOpenChat}
+                className="group flex flex-col items-center justify-center gap-0.5 h-9 sm:h-10 px-1.5 rounded-lg bg-gradient-to-r from-purple-600/90 via-indigo-600/90 to-cyan-500/90 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-400 text-white transition-all border border-purple-400/20"
+              >
+                <span className="flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 shrink-0 opacity-90 group-hover:rotate-12 transition-transform" strokeWidth={2.25} />
+                  <span className="text-[10px] sm:text-[11px] font-semibold leading-none truncate">AI Chat</span>
+                </span>
+                <span className="text-[8px] sm:text-[9px] opacity-80 leading-none truncate max-w-full">Ask me anything</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -366,7 +407,7 @@ export function HeroSection() {
         </motion.div>
 
         {/* Bio & Experience */}
-        <HeroBio />
+        <HeroBio onOpenChat={() => setChatOpen(true)} />
 
         {/* Social Links Grid */}
         <motion.div
@@ -433,46 +474,6 @@ export function HeroSection() {
               </Link>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.55 }}
-          className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-lg mx-auto"
-        >
-          {/* Explore Button */}
-          <Link
-            href="#projects"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm transition-all hover:opacity-95 shadow-lg shadow-primary/10 border border-primary/20 text-center"
-          >
-            Explore Projects
-          </Link>
-
-          {/* Download Resume */}
-          <Link
-            href="/myresume_.pdf"
-            download="Kiflom Berihu Abay Resume"
-            target="_blank"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-card/60 dark:bg-card/20 text-foreground font-semibold text-sm border border-border/80 dark:border-border/30 transition-all hover:bg-card/95 hover:border-primary/30 text-center flex items-center justify-center gap-2"
-          >
-            Download Resume
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-          </Link>
-
-          {/* Chat AI Button */}
-          <button
-            onClick={() => setChatOpen(true)}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:via-indigo-500 hover:to-cyan-400 text-white font-semibold text-sm shadow-xl shadow-purple-500/25 border border-purple-400/25 transition-all text-center flex items-center justify-center gap-2 group"
-          >
-            <svg className="w-4 h-4 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-            </svg>
-            Ask AI Assistant
-          </button>
         </motion.div>
       </motion.div>
 
