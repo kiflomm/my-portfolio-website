@@ -82,7 +82,7 @@ function CodeSnippet({ code, delay = 0, position = "top" }: { code: string; dela
         opacity: { times: [0, 0.4, 1] }
       }}
       whileHover={{ y: -6, scale: 1.02 }}
-      className="backdrop-blur-md bg-card/45 dark:bg-card/25 border border-border/40 dark:border-border/10 rounded-xl shadow-2xl p-3 lg:p-4 font-mono text-xs select-none max-w-[210px] lg:max-w-[230px] xl:max-w-[250px] 2xl:max-w-[280px] pointer-events-auto"
+      className="backdrop-blur-md bg-card/45 dark:bg-card/25 border border-border/40 dark:border-border/10 rounded-xl shadow-2xl p-3 lg:p-4 font-mono text-xs select-none w-[300px] lg:w-[340px] xl:w-[380px] 2xl:w-[420px] pointer-events-auto"
     >
       {/* macOS dots */}
       <div className="flex items-center gap-1.5 border-b border-border/20 dark:border-border/5 pb-2.5 mb-2.5">
@@ -92,7 +92,7 @@ function CodeSnippet({ code, delay = 0, position = "top" }: { code: string; dela
         <span className="text-[10px] text-muted-foreground ml-2 font-sans">kiflom.ts</span>
       </div>
       
-      <pre className="leading-relaxed overflow-x-auto text-[11px] md:text-xs">
+      <pre className="leading-relaxed overflow-hidden text-[11px] md:text-xs whitespace-pre-wrap break-words">
         {lines.map((line, i) => (
           <div key={i} className={getColor(line)}>
             {line}
@@ -155,7 +155,9 @@ function HeroBio({ onOpenChat }: { onOpenChat: () => void }) {
           <div className="mt-4 pt-3 border-t border-border/40 dark:border-border/15">
             <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
               <Link
-                href="#projects"
+                href="https://github.com/kiflomm"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex flex-col items-center justify-center gap-0.5 h-9 sm:h-10 px-1.5 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-all border border-primary/20"
               >
                 <span className="flex items-center gap-1">
@@ -373,10 +375,10 @@ export function HeroSection() {
         >
           <div className="relative group">
             {/* Spinning/pulsing neon ring */}
-            <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-primary via-purple-600 to-cyan-500 opacity-60 blur-md group-hover:opacity-90 transition-opacity duration-500 avatar-ring" />
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-primary via-purple-600 to-cyan-500 animate-spin opacity-80 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDuration: "8s" }} />
+            <div className="absolute -inset-1.5 rounded-2xl bg-gradient-to-r from-primary via-purple-600 to-cyan-500 opacity-60 blur-md group-hover:opacity-90 transition-opacity duration-500 avatar-ring" />
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary via-purple-600 to-cyan-500 animate-spin opacity-80 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDuration: "8s" }} />
 
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-background bg-card shadow-2xl">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border-4 border-background bg-card shadow-2xl">
               <Image
                 src="https://res.cloudinary.com/dpheomaz9/image/upload/v1740572514/144546891_fq7aqn.jpg"
                 alt="Kiflom Berihu Abay"
