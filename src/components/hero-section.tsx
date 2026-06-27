@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { AIAssistant } from "@/components/ai-assistant"
 
 // Typing animation component
@@ -71,7 +71,7 @@ function CodeSnippet({ code, delay = 0, position = "top" }: { code: string; dela
     <motion.div
       initial={{ opacity: 0, scale: 0.92, y: position === "top" ? -20 : 20 }}
       animate={{ 
-        opacity: [0, 0.75, 0.75],
+        opacity: [0, 0.85, 0.85],
         y: 0,
         scale: 1
       }}
@@ -81,7 +81,7 @@ function CodeSnippet({ code, delay = 0, position = "top" }: { code: string; dela
         opacity: { times: [0, 0.4, 1] }
       }}
       whileHover={{ y: -6, scale: 1.02 }}
-      className="backdrop-blur-md bg-card/45 dark:bg-card/25 border border-border/40 dark:border-border/10 rounded-xl shadow-2xl p-4 font-mono text-xs select-none max-w-[280px] sm:max-w-xs pointer-events-auto"
+      className="backdrop-blur-md bg-card/45 dark:bg-card/25 border border-border/40 dark:border-border/10 rounded-xl shadow-2xl p-3 lg:p-4 font-mono text-xs select-none max-w-[210px] lg:max-w-[230px] xl:max-w-[250px] 2xl:max-w-[280px] pointer-events-auto"
     >
       {/* macOS dots */}
       <div className="flex items-center gap-1.5 border-b border-border/20 dark:border-border/5 pb-2.5 mb-2.5">
@@ -98,6 +98,60 @@ function CodeSnippet({ code, delay = 0, position = "top" }: { code: string; dela
           </div>
         ))}
       </pre>
+    </motion.div>
+  )
+}
+
+function HeroBio() {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`)
+    card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`)
+  }, [])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 1.1 }}
+      className="mb-8 max-w-2xl mx-auto"
+    >
+      {/* Bio narrative card */}
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        className="radial-glow-card radial-glow-border relative rounded-2xl p-[1px] bg-gradient-to-br from-primary/20 via-purple-500/10 to-cyan-500/20"
+      >
+        <div className="relative rounded-2xl glass-card px-5 py-5 sm:px-7 sm:py-6 text-left overflow-hidden">
+          <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+
+          <p className="text-sm sm:text-base md:text-[1.05rem] leading-relaxed sm:leading-relaxed text-foreground/85 font-medium">
+            I&apos;m a{" "}
+            <span className="font-semibold bg-gradient-to-r from-purple-600 to-violet-500 dark:from-purple-400 dark:to-violet-300 bg-clip-text text-transparent">
+              software developer
+            </span>{" "}
+            with{" "}
+            <span className="font-semibold text-foreground">7 years</span> of programming experience, including{" "}
+            <span className="font-semibold text-foreground">3 years</span> working professionally. I enjoy{" "}
+            <span className="font-semibold bg-gradient-to-r from-cyan-600 to-blue-500 dark:from-cyan-400 dark:to-blue-300 bg-clip-text text-transparent">
+              building meaningful software
+            </span>
+            ,{" "}
+            <span className="font-semibold bg-gradient-to-r from-amber-600 to-orange-500 dark:from-amber-400 dark:to-orange-300 bg-clip-text text-transparent">
+              learning new technologies
+            </span>
+            , and turning ideas into{" "}
+            <span className="font-semibold bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-300 bg-clip-text text-transparent">
+              solutions that make a real difference
+            </span>
+            .
+          </p>
+        </div>
+      </div>
     </motion.div>
   )
 }
@@ -234,7 +288,7 @@ export function HeroSection() {
     {
       code: `function buildAwesomeApp() {\n  return {\n    cleanCode: true,\n    greatDesign: true,\n    userExperience: "premium"\n  }\n}`,
       delay: 0.5,
-      position: "bottom",
+      position: "top",
     },
   ]
 
@@ -253,12 +307,12 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-grid-pattern opacity-60 z-0 pointer-events-none" />
 
       {/* Code Snippets floating on sides (Desktop view) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-20 hidden lg:block">
-        <div className="absolute top-24 left-8 xl:left-16">
+      <div className="absolute inset-0 pointer-events-none z-20 hidden lg:block">
+        <div className="absolute top-[8%] left-3 xl:left-8 2xl:left-14">
           <CodeSnippet code={codeSnippets[0].code} delay={codeSnippets[0].delay} position="top" />
         </div>
-        <div className="absolute bottom-28 right-8 xl:right-16">
-          <CodeSnippet code={codeSnippets[1].code} delay={codeSnippets[1].delay} position="bottom" />
+        <div className="absolute top-[12%] right-3 xl:right-8 2xl:right-14">
+          <CodeSnippet code={codeSnippets[1].code} delay={codeSnippets[1].delay} position="top" />
         </div>
       </div>
 
@@ -311,11 +365,14 @@ export function HeroSection() {
           </p>
         </motion.div>
 
+        {/* Bio & Experience */}
+        <HeroBio />
+
         {/* Social Links Grid */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
+          transition={{ duration: 0.8, delay: 1.35 }}
           className="flex flex-wrap justify-center gap-3 mb-8"
         >
           {[
@@ -382,7 +439,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
+          transition={{ duration: 0.8, delay: 1.55 }}
           className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-lg mx-auto"
         >
           {/* Explore Button */}
