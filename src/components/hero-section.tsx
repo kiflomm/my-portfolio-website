@@ -168,7 +168,7 @@ function HeroBio({ onOpenChat }: { onOpenChat: () => void }) {
               </Link>
 
               <Link
-                href="/myresume_.pdf"
+                href="/kiflomcv.png"
                 download="Kiflom Berihu Abay Resume"
                 target="_blank"
                 className="group flex flex-col items-center justify-center gap-0.5 h-9 sm:h-10 px-1.5 rounded-lg bg-background/60 dark:bg-background/30 text-foreground hover:bg-background/90 dark:hover:bg-background/50 transition-all border border-border/60 dark:border-border/25"
