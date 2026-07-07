@@ -1,6 +1,5 @@
 "use client"
 import { HeroSection } from "@/components/hero-section"
-import { SkillsShowcase } from "@/components/skills"
 import { ProjectGallery } from "@/components/project-gallery"
 import { CustomCursor } from "@/components/custom-cursor"
 import { EducationWork } from "@/components/education-work"
@@ -28,9 +27,7 @@ export default function Home() {
         <HeroSection />
       </section>
 
-      <section id="skills">
-        <SkillsShowcase />
-      </section>
+      {/* Skills section removed */}
 
       <section id="education">
         <EducationWork />
