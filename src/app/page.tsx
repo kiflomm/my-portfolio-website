@@ -1,6 +1,5 @@
 "use client"
 import { HeroSection } from "@/components/hero-section"
-import { ProjectGallery } from "@/components/project-gallery"
 import { CustomCursor } from "@/components/custom-cursor"
 import { EducationWork } from "@/components/education-work"
 import { motion } from "framer-motion"
@@ -31,10 +30,6 @@ export default function Home() {
 
       <section id="education">
         <EducationWork />
-      </section>
-
-      <section id="projects">
-        <ProjectGallery />
       </section>
 
       {/* Scroll indicator */}
